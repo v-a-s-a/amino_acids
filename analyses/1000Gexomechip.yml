@@ -1,0 +1,24 @@
+# Finding independent association in 1000G-exomechip-based data
+vcf: &vcf /net/snowwhite/home/welchr/scratch/for_adam_1000g_json/Final.METSIM.1KG_imp.b37.json
+swissOptions: [  --build hg19,
+                 --ld-clump,
+                 --clump-p 5e-7,
+                 --clump-ld-thresh .1,
+                 --ld-clump-source %s,
+                 --ld-gwas-source %s,
+                 --gwas-cat fusion  ] 
+Path: /net/snowwhite/home/teslo/ExomeChip/AminoAcids
+swissPath: /usr/cluster/boehnke/bin/welchr/swiss/bin/swiss
+dataSet: 1000G
+swissDir: /net/snowwhite/home/trubetsk/projects/amino_acids/data/%s/swiss/
+studyAcids: [  Ala,
+               Gln,
+               Gly,
+               His,
+               Ile,
+               Leu,
+               Phe,
+               Tyr,
+               Val  ]
+trait: ln_%s_agebmi_inv
+
