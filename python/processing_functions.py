@@ -1,5 +1,17 @@
 #!/usr/bin/env python
 
+def parse_config(configFile):
+  '''
+  Parse the analysis configuration file, and set up variables.
+  '''
+  ## Parse analysis configuration file 
+  config = yaml.load(open(configFile))
+  config['swissOptions'] = [ s % config['vcf'] if '%' in s else s for s in config['swissOptions']]
+  config['traits'] = [  config['trait'] % aa for aa in config['studyAcids'] ]
+  config['swissDir'] = config['swissDir'] % config['dataSet']
+  print "Running analysis on {0} data.".format(config['dataSet'])
+
+
 def process_epacts(aminoAcid, inputFile, outFile, additionalOpts=[], config = None):
   '''
   Construct a swiss command line for a given trait and chromosome.
@@ -52,6 +64,7 @@ def _cleanup_swiss(direc):
   for root, dirs, files in os.walk(direc):
     logs = [ root+x for x in files if x.endswith('.txt') or x.endswith('.log') ]
     for log in logs: os.remove(log)
+
 
 
 
